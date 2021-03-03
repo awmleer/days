@@ -9,9 +9,11 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm install -g yarn
-          yarn install
-          yarn run build
+          npm install
+          npm run build
+          # npm install -g yarn
+          # yarn install
+          # yarn run build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.0.0
