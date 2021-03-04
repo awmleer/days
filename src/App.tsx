@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -141,6 +140,9 @@ function App() {
         </JumboNumber>
         <div>
           = {diffSeconds} 秒
+        </div>
+        <div>
+          从 2021.2.3 至今
         </div>
       </Footer>
     </Container>
