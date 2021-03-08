@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import moment from 'moment';
 import {HeartFilled} from '@ant-design/icons'
+import { BubbleHeart } from './bubble-heart';
 
 const Container = styled.div`
   background-color: #f7f7f7;
@@ -90,6 +91,11 @@ const Footer = styled.div`
   padding: 24px;
 `
 
+const bubbleHeartArray: null[] = []
+for (let i = 0; i < 50; i++) {
+  bubbleHeartArray.push(null)
+}
+
 function App() {
   const [flag, setFlag] = useState({})
   const since = useMemo(() => (
@@ -111,6 +117,19 @@ function App() {
     }
   }, [])
 
+  const [animating, setAnimating] = useState(false)
+  console.log('animating', animating)
+
+  async function doAnimation() {
+    if (animating) {
+      return
+    }
+    setAnimating(true)
+    await new Promise<void>(resolve => {
+      setTimeout(() => {resolve()}, 5000)
+    })
+    setAnimating(false)
+  }
 
   return (
     <Container>
@@ -123,8 +142,8 @@ function App() {
         <BottomBar/>
       </Header>
       <Background>
-        <HeartIconWrapper>
-          <HeartFilled />
+        <HeartIconWrapper onClick={doAnimation}>
+          <HeartFilled/>
         </HeartIconWrapper>
         <Shadow style={{width: '24vw', top: '34vw', left: '-10vw'}}/>
         <Shadow style={{width: '30vw', top: '52vw', left: '-9vw'}}/>
@@ -144,6 +163,11 @@ function App() {
           从 2021.2.3 至今
         </div>
       </Footer>
+      {animating && (
+        bubbleHeartArray.map((v, index) => (
+          <BubbleHeart key={index} />
+        ))
+      )}
     </Container>
   );
 }
