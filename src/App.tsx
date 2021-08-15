@@ -106,7 +106,7 @@ function App() {
   ), [flag])
 
   const diffDays = now.diff(since, 'days')
-  const diffSeconds = now.diff(since, 'seconds')
+  const duration = moment.duration(now.diff(since))
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -118,7 +118,6 @@ function App() {
   }, [])
 
   const [animating, setAnimating] = useState(false)
-  console.log('animating', animating)
 
   async function doAnimation() {
     if (animating) {
@@ -157,7 +156,12 @@ function App() {
           </small>
         </JumboNumber>
         <div>
-          = {diffSeconds} 秒
+          {'= '}
+          {duration.years() > 0 && (
+            duration.years() + ' 年 '
+          )}
+          {duration.months() + ' 月 '}
+          {duration.days() + ' 天'}
         </div>
         <div>
           从 2021.2.3 至今
